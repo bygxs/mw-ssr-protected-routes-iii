@@ -1,8 +1,7 @@
-// app/context/AuthContext.tsx
-
+// src/context/AuthContext.tsx
 "use client";
 
-import { createContext, useContext, useState, useEffect, ReactNode } from "react";
+import { createContext, useContext, useState, ReactNode } from "react";
 import { useRouter } from "next/navigation";
 
 interface AuthContextType {
@@ -17,18 +16,9 @@ export function AuthProvider({ children }: { children: ReactNode }) {
   const [user, setUser] = useState<string | null>(null);
   const router = useRouter();
 
-  // Sync user state with cookie on mount
-  useEffect(() => {
-    const cookieUser = document.cookie
-      .split("; ")
-      .find((row) => row.startsWith("user="))
-      ?.split("=")[1];
-    if (cookieUser) setUser(cookieUser);
-  }, []);
-
   const login = (username: string) => {
     setUser(username);
-    document.cookie = `user=${username}; path=/; max-age=3600`; // 1 hour expiry
+    document.cookie = `user=${username}; path=/; max-age=3600`; // 1 hour
     router.push("/protected");
   };
 

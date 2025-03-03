@@ -1,17 +1,28 @@
-// app/protected/page.tsx
+// src/app/protected/page.tsx
 "use client";
 
 import Link from "next/link";
 import { useAuth } from "../context/AuthContext";
+import { useRouter } from "next/navigation";
+import { useEffect } from "react";
 
 export default function ProtectedPage() {
   const { user, logout } = useAuth();
+  const router = useRouter();
+
+  useEffect(() => {
+    fetch("/api/auth/check-auth")
+      .then((res) => {
+        if (res.status === 401) router.push("/login");
+      })
+      .catch(() => router.push("/login"));
+  }, [router]);
 
   if (!user) {
     return (
       <div className="flex items-center justify-center min-h-screen bg-gray-100 dark:bg-gray-900">
         <p className="text-gray-800 dark:text-gray-300">
-          You shouldn’t see this—middleware should redirect to /login!
+          Checking auth...
         </p>
       </div>
     );
