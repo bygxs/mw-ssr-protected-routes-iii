@@ -58,6 +58,8 @@ const HomePage: React.FC = () => {
           Protected
         </Link>
 
+        
+
         <div className="mt-8 text-center">
           <h2 className="text-2xl font-semibold text-gray-800 dark:text-white mb-2">
             Serverless Functions (/api/) vs midddleware
@@ -84,6 +86,16 @@ const HomePage: React.FC = () => {
           </p>
         </div>
       </div>
+      <div>
+
+
+
+        
+      </div>
+
+
+
+
     </div>
   );
 };
